@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset='utf-8'>
     <link rel="stylesheet" type="text/css" href="styles.css"/>
     <div class="topnav">
-        <a class="active" href="index.html">Вода</a>
+		<a class="active" href="index.html">Основная страница</a>
+        <a href="water.html">Вода</a>
         <a href="steam.html">Пар</a>
         <a href="ice.html">Лёд</a>
-        <a href="videos.html">Видео</a>
     </div>
 </head>
-<div class="toggleDiv">
-    <script src="three.min.js"></script>
-    <script src="GLTFLoader.js"></script>
-    <script src="OrbitControls.js"></script>
-    <script>
-        let scene, camera, renderer, loader;
-        let autoRotate, controls;
-        autoRotate = false;
+<style>
+   h3 {
+    text-indent: 20px; /* Отступ первой строки в пикселах */
+   }
+  </style>
+<h3 align="justify">
+    Компьютерная модель позволяет рассмотреть микроструктуру воды в различных агрегатных состояниях.
+</h3>
+<h3 align="justify">
+    Одно и то же вещество может находится в твердом, жидком и газообразном состояниях. Примером могут служить лед, вода
+    и водяной пар. Эти состояния называют агрегатными.
 
-        function init() {
-            autoRotate = false
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xdddddd);
-            camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 5000);
-            camera.rotation.y = 30 / 180 * Math.PI;
-            camera.position.x = 100;
-            camera.position.y = 400;
-            camera.position.z = 100;
+    В твердых телах молекулы совершают беспорядочные колебания около фиксированных центров (положений равновесия). Эти
+    центры могут быть расположены в пространстве нерегулярным образом (аморфные тела) или образовывать упорядоченные
+    объемные структуры (кристаллические тела).
+</h3><h3 align="justify">
+В жидкостях молекулы имеют значительно большую свободу для теплового движения. Они не привязаны к определенным
+центрам и могут перемещаться по всему объему. Этим объясняется текучесть жидкостей. Близко расположенные молекулы
+жидкости также могут образовывать упорядоченные структуры, содержащие несколько молекул. Это явление называется
+ближним порядком в отличие от дальнего порядка, характерного для кристаллических тел.
+</h3><h3 align="justify">
+    В газах расстояния между молекулами обычно значительно больше их размеров. Силы взаимодействия между молекулами на
+    таких больших расстояниях малы, и каждая молекула движется вдоль прямой линии до очередного столкновения с другой
+    молекулой или со стенкой сосуда. Среднее расстояние между молекулами воздуха при нормальных условиях порядка 10–8 м,
+    то есть в десятки раз превышает размер молекул. Слабое взаимодействие между молекулами объясняет способность газов
+    расширяться и заполнять весь объем сосуда.
+</h3><h4 align="justify">
+    Пользователь может выбрать одно из трех агрегатных состояний воды и наблюдать особенности микроструктуры вещества в
+    выбранном состоянии. В твердой форме (лед) для молекул воды доступны лишь вращательные и колебательные движения,
+    поступательные движения на заметные расстояния невозможны. Наблюдается четкая кристаллическая структура льда.
+    Обратите внимание на ориентацию молекул (атомы водорода одних молекул направлены в сторону атомов кислорода других),
+    каждая молекула воды соединена с четырьмя ближайшими к ней другими молекулами. Образуемые при этом пустоты в
+    структуре льда приводят к уменьшению его плотности по сравнению с жидкой водой.
 
-            renderer = new THREE.WebGLRenderer({antialias: true});
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
+    В жидкой форме вода все еще существует как единое целое (сохраняет объем), расстояния между молекулами по порядку
+    величины совпадают с размерами самих молекул. Однако возможны далекие по сравнению с этими размерами смещения
+    молекул от своих начальных положений, из-за этого не сохраняются ни взаимные ориентации молекул, ни форма жидкости
+    как целого.
 
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
+    Наконец, в газе молекулы максимально обособлены друг от друга, и длина свободного пробега молекулы гораздо больше ее
+    размеров.
+</h4>
 
-            directionalLight = new THREE.DirectionalLight(0xffffff, 10);
-            directionalLight.position.set(1, 1, 1);
-            directionalLight.castShadow = true;
-            scene.add(directionalLight);
-            light4 = new THREE.PointLight(0xc4c4c4, 10);
-            light4.position.set(-500, 300, 500);
+<p>
+	<h1>Одна молекула воды</h1>
+	<img src="image/molecula.png" alt="" width=300>
+</p>
+<p id="page-wrap">
+	<h1>Структура льда</h1>
+    <video height="360" width="360" controls muted autoplay loop >
+        <source src="videos/water.mp4" type="video/mp4" >
+    </video>
+</p>
 
-            scene.add(light4);
-            controls.update();
 
-            loader = new THREE.GLTFLoader();
-            loader.load('models/WaterLiquid.gltf',
-                function (gltf) {
-
-                    gltf.scene.scale.set(5, 5, 5) // scale here
-                    gltf.scene.rotateZ(70)
-                    scene.add(gltf.scene);
-                    animate()
-                }, (xhr) => xhr, (err) => console.error(e));
-
-            function animate() {
-                renderer.render(scene, camera);
-                controls.update();
-                requestAnimationFrame(animate);
-            }
-        }
-        init();
-    </script>
-</div>
+</body>
 </html>

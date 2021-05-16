@@ -1,12 +1,14 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset='utf-8'>
     <link rel="stylesheet" type="text/css" href="styles.css"/>
     <div class="topnav">
-        <a href="index.html">Основная страница</a>
-        <a href="water.html">Вода</a>
+		<a class="active" href="index.html">Основная страница</a>
+        <a  href="water.html">Вода</a>
         <a href="steam.html">Пар</a>
-        <a class="active" href="ice.html">Лёд</a>
+        <a href="ice.html">Лёд</a>
+        
     </div>
 </head>
 <div class="toggleDiv">
@@ -45,12 +47,12 @@
             controls.update();
 
             loader = new THREE.GLTFLoader();
-            loader.load('models/WaterIce.gltf',
+            loader.load('models/WaterLiquid.gltf',
                 function (gltf) {
 
                     gltf.scene.scale.set(5, 5, 5) // scale here
-                    scene.add(gltf.scene);
                     gltf.scene.rotateZ(70)
+                    scene.add(gltf.scene);
                     animate()
                 }, (xhr) => xhr, (err) => console.error(e));
 
